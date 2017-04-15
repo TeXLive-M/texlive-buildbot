@@ -1,0 +1,13 @@
+buildbot.tac
+http.log
+state.sqlite
+twistd.*
+
+master.cfg.sample
+
+public_html/
+templates/
+
+slaves.json
+htpasswd
+

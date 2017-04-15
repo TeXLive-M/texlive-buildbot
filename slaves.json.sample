@@ -1,0 +1,15 @@
+{
+	"build_platforms" : [
+		{ "code" : "loc", "slave" : "pragma-linux-armhf", "platform" : "linux",   "archs" : [ "armhf" ] },
+		{ "code" : "loc", "slave" : "darwin10-x86_64",    "platform" : "darwin",  "archs" : [ "x86_64", "i386", "powerpc" ] },
+		{ "code" : "loc", "slave" : "solaris10-i386",     "platform" : "solaris", "archs" : [ "i386", "x86_64" ] },
+		{ "code" : "loc", "slave" : "solaris10-sparc",    "platform" : "solaris", "archs" : [ "sparc" ] }
+	],
+	"slaves" : {
+		"solaris10-i386"     : "",
+		"solaris10-sparc"    : "",
+		"darwin10-x86_64"    : "",
+		"pragma-linux-armhf" : "",
+	}
+}
+
