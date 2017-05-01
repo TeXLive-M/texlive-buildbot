@@ -73,29 +73,20 @@ env_solaris10 = {
     'CC'      : '/opt/csw/bin/gcc-5.2',
     'CXX'     : '/opt/csw/bin/g++-5.2',
     'PATH'    : [ '${PATH}', '/usr/ccs/bin'],
-    'TL_MAKE' : 'gmake',
 #   'GREP'    : 'ggrep',
 }
 env_solaris10_64 = {
     'CC'      : '/opt/csw/bin/gcc-5.2 -m64',
     'CXX'     : '/opt/csw/bin/g++-5.2 -m64',
     'PATH'    : [ '${PATH}', '/usr/ccs/bin'],
-    'TL_MAKE' : 'gmake',
 #   'GREP'    : 'ggrep',
 }
-env_openbsd = {
-    'ICU_LIBS_EXTRA' : '-lpthread',
-    'TL_MAKE'        : 'gmake',
-}
+env_openbsd = {}
 env_openbsd_cxx11 = {
-    'ICU_LIBS_EXTRA' : '-lpthread',
-    'TL_MAKE'        : 'gmake',
     'CC'             : 'egcc',
     'CXX'            : 'eg++',
 }
-env_freebsd = {
-    'TL_MAKE' : 'gmake',
-}
+env_freebsd = {}
 env_linux = {}
 
 builder_profiles = {
