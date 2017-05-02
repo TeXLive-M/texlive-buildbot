@@ -6,12 +6,14 @@
 # - make and tar command to be used
 # - is it capable of building C++11 code?
 class BuilderProfile(object):
-    def __init__(self, platform, env = {}, cmd_make = 'make', cmd_tar = 'tar', cxx11 = True):
+    def __init__(self, platform, env = {}, cmd_make = 'make', cmd_tar = 'tar', cxx11 = True, tl_config_flags = []):
         self.platform = platform
         self.env      = env
         self.cmd_make = cmd_make
         self.cmd_tar  = cmd_tar
         self.cxx11    = cxx11
+
+        self.tl_config_flags = tl_config_flags
 
 # Builder:
 # - slave name
@@ -109,7 +111,7 @@ builder_profiles = {
     'solaris10-x86_64' : BuilderProfile(platform = 'solaris', env = env_solaris10_64,       cmd_make = 'gmake', cmd_tar = 'gtar',   cxx11 = True),
     'darwin10-i386'    : BuilderProfile(platform = 'darwin',  env = env_darwin10['i386'],   cmd_make = 'make',  cmd_tar = 'gnutar', cxx11 = False),
     'darwin10-x86_64'  : BuilderProfile(platform = 'darwin',  env = env_darwin10['x86_64'], cmd_make = 'make',  cmd_tar = 'gnutar', cxx11 = False),
-    'darwin10-powerpc' : BuilderProfile(platform = 'darwin',  env = env_darwin10['ppc'],    cmd_make = 'make',  cmd_tar = 'gnutar', cxx11 = False),
+    'darwin10-powerpc' : BuilderProfile(platform = 'darwin',  env = env_darwin10['ppc'],    cmd_make = 'make',  cmd_tar = 'gnutar', cxx11 = False, tl_config_flags=['--disable-luajittex', '--disable-mfluajit']),
     'openbsd'          : BuilderProfile(platform = 'openbsd', env = env_openbsd,            cmd_make = 'gmake', cmd_tar = 'gtar',   cxx11 = False),
     'openbsd_cxx11'    : BuilderProfile(platform = 'openbsd', env = env_openbsd_cxx11,      cmd_make = 'gmake', cmd_tar = 'gtar',   cxx11 = True),
     'linux'            : BuilderProfile(platform = 'linux',   env = env_linux,              cmd_make = 'make',  cmd_tar = 'tar',    cxx11 = False),
