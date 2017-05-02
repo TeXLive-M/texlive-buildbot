@@ -88,6 +88,20 @@ env_openbsd_cxx11 = {
 }
 env_freebsd = {}
 env_linux = {}
+env_mingw = {}
+for arch in ['32', '64']:
+    if arch == '32':
+        name = 'i686-w64-mingw32'
+    else:
+        name = 'x86_64-w64-mingw32'
+
+    env_mingw[arch] = {
+        'CFLAGS'   : '-mtune=nocona -g -O3 -fno-lto -fno-use-linker-plugin ${CFLAGS}',
+        'CXXFLAGS' : '-mtune=nocona -g -O3 -fno-lto -fno-use-linker-plugin ${CXXFLAGS}',
+        'LDFLAGS'  : '${LDFLAGS} -fno-lto -fno-use-linker-plugin -static-libgcc -static-libstdc++',
+        'RANLIB'   : '{}-ranlib'.format(name),
+        'STRIP'    : '{}-strip'.format(name),
+    }
 
 builder_profiles = {
     'solaris10-sparc'  : BuilderProfile(platform = 'solaris', env = env_solaris10,          cmd_make = 'gmake', cmd_tar = 'gtar',   cxx11 = True),
@@ -100,6 +114,8 @@ builder_profiles = {
     'openbsd_cxx11'    : BuilderProfile(platform = 'openbsd', env = env_openbsd_cxx11,      cmd_make = 'gmake', cmd_tar = 'gtar',   cxx11 = True),
     'linux'            : BuilderProfile(platform = 'linux',   env = env_linux,              cmd_make = 'make',  cmd_tar = 'tar',    cxx11 = False),
     'linux_cxx11'      : BuilderProfile(platform = 'linux',   env = env_linux,              cmd_make = 'make',  cmd_tar = 'tar',    cxx11 = True),
+    'linux-mingw32'    : BuilderProfile(platform = 'mingw',   env = env_mingw['32'],        cmd_make = 'make',  cmd_tar = 'tar',    cxx11 = True),
+    'linux-mingw64'    : BuilderProfile(platform = 'mingw',   env = env_mingw['64'],        cmd_make = 'make',  cmd_tar = 'tar',    cxx11 = True),
 }
 
 # slave:   name of the slave
@@ -121,5 +137,6 @@ builder_list = [
     BuildWorker(slave = 'pragma-linux-debian9-i386',   code = 'prg', profile = builder_profiles['linux'],            name = 'linux-i386-debian9.prg',   arch = 'i386',    tlname = None,                  upload = False),
     BuildWorker(slave = 'pragma-linux-debian7-x86_64', code = 'prg', profile = builder_profiles['linux'],            name = 'linux-x86_64-debian7.prg', arch = 'x86_64',  tlname = 'x86_64-linux',        upload = True),
     BuildWorker(slave = 'pragma-linux-debian9-x86_64', code = 'prg', profile = builder_profiles['linux'],            name = 'linux-x86_64-debian9.prg', arch = 'x86_64',  tlname = None,                  upload = False),
-#   BuildWorker(slave = 'pragma-linux-debian9-x86_64', code = 'prg', profile = builder_profiles['linux-mingw32'],    name = 'linux-mingw-w64.prg',      arch = 'win64',   tlname = None,                  upload = False),
+#   BuildWorker(slave = 'pragma-linux-debian9-x86_64', code = 'prg', profile = builder_profiles['linux-mingw32'],    name = 'mingw32-i386.prg',         arch = 'win32',   tlname = 'i686-w64-mingw32',    upload = True),
+#   BuildWorker(slave = 'pragma-linux-debian9-x86_64', code = 'prg', profile = builder_profiles['linux-mingw64'],    name = 'mingw32-x86_64.prg',       arch = 'win64',   tlname = 'x86_64-w64-mingw32',  upload = True),
 ]
