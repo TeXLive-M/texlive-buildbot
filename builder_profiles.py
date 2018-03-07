@@ -70,14 +70,14 @@ for arch in ['ppc', 'i386', 'x86_64']:
     env_darwin10_cxx11[arch]['STRIP'] = 'strip -u -r'
 
 env_solaris10 = {
-    'CC'      : '/opt/csw/bin/gcc-5.2',
-    'CXX'     : '/opt/csw/bin/g++-5.2',
+    'CC'      : '/opt/csw/bin/gcc-5.5',
+    'CXX'     : '/opt/csw/bin/g++-5.5',
     'PATH'    : [ '${PATH}', '/usr/ccs/bin'],
 #   'GREP'    : 'ggrep',
 }
 env_solaris10_64 = {
-    'CC'      : '/opt/csw/bin/gcc-5.2 -m64',
-    'CXX'     : '/opt/csw/bin/g++-5.2 -m64',
+    'CC'      : '/opt/csw/bin/gcc-5.5 -m64',
+    'CXX'     : '/opt/csw/bin/g++-5.5 -m64',
     'PATH'    : [ '${PATH}', '/usr/ccs/bin'],
 #   'GREP'    : 'ggrep',
 }
