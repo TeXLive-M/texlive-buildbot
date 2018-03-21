@@ -68,8 +68,8 @@ for arch in ['ppc', 'i386', 'x86_64']:
         env_darwin10[arch][stdlib]['OBJCXX'] = '{} -arch {}'.format(cxx[stdlib], arch)
 
         for flags in ['CFLAGS', 'OBJCFLAGS', 'CXXFLAGS', 'OBJCXXFLAGS']:
-            env_darwin10[arch][stdlib][flags] = sysroot
-        env_darwin10[arch][stdlib]['LDFLAGS'] = ldflags
+            env_darwin10[arch][stdlib][flags] = '-Os {}'.format(sysroot)
+        env_darwin10[arch][stdlib]['LDFLAGS'] = '-Os {}'.format(ldflags)
 
         env_darwin10[arch][stdlib]['STRIP'] = 'strip -u -r'
 
