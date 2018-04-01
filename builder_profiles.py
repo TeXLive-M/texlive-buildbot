@@ -85,8 +85,11 @@ env_solaris10_64 = {
     'PATH'    : [ '${PATH}', '/usr/ccs/bin'],
 #   'GREP'    : 'ggrep',
 }
-env_openbsd = {}
-env_openbsd_cxx11 = {
+env_openbsd = {
+    'CC'      : 'clang',
+    'CXX'     : 'clang++',
+}
+env_openbsd_old = {
     'CC'             : 'egcc',
     'CXX'            : 'eg++',
 }
@@ -112,8 +115,8 @@ builder_profiles = {
     'solaris10-i386'   : BuilderProfile(platform = 'solaris', env = env_solaris10,          cmd_make = 'gmake', cmd_tar = 'gtar',   cxx11 = True),
     'solaris10-x86_64' : BuilderProfile(platform = 'solaris', env = env_solaris10_64,       cmd_make = 'gmake', cmd_tar = 'gtar',   cxx11 = True),
     'freebsd'          : BuilderProfile(platform = 'freebsd', env = env_freebsd,            cmd_make = 'gmake', cmd_tar = 'gtar',   cxx11 = True),
-    'openbsd'          : BuilderProfile(platform = 'openbsd', env = env_openbsd,            cmd_make = 'gmake', cmd_tar = 'gtar',   cxx11 = False),
-    'openbsd_cxx11'    : BuilderProfile(platform = 'openbsd', env = env_openbsd_cxx11,      cmd_make = 'gmake', cmd_tar = 'gtar',   cxx11 = True),
+    'openbsd'          : BuilderProfile(platform = 'openbsd', env = env_openbsd,            cmd_make = 'gmake', cmd_tar = 'gtar',   cxx11 = True),
+    'openbsd_old'      : BuilderProfile(platform = 'openbsd', env = env_openbsd_old,        cmd_make = 'gmake', cmd_tar = 'gtar',   cxx11 = True),
     'linux'            : BuilderProfile(platform = 'linux',   env = env_linux,              cmd_make = 'make',  cmd_tar = 'tar',    cxx11 = True),
     'linux-mingw32'    : BuilderProfile(platform = 'mingw',   env = env_mingw['32'],        cmd_make = 'make',  cmd_tar = 'tar',    cxx11 = True),
     'linux-mingw64'    : BuilderProfile(platform = 'mingw',   env = env_mingw['64'],        cmd_make = 'make',  cmd_tar = 'tar',    cxx11 = True),
@@ -134,10 +137,12 @@ builder_list = [
     BuildWorker(slave = 'solaris10-i386',              code = 'csw', profile = builder_profiles['solaris10-i386'],   name = 'solaris-i386.csw',         arch = 'i386',    tlname = 'i386-solaris',        upload = True),
     BuildWorker(slave = 'solaris10-i386',              code = 'csw', profile = builder_profiles['solaris10-x86_64'], name = 'solaris-x86_64.csw',       arch = 'x86_64',  tlname = 'x86_64-solaris',      upload = True),
     BuildWorker(slave = 'solaris10-sparc',             code = 'csw', profile = builder_profiles['solaris10-sparc'],  name = 'solaris-sparc.csw',        arch = 'sparc',   tlname = 'sparc-solaris',       upload = True),
-    BuildWorker(slave = 'pragma-openbsd6.0-i386',      code = 'prg', profile = builder_profiles['openbsd_cxx11'],    name = 'openbsd-i386-6.0.prg',     arch = 'i386',    tlname = 'i386-openbsd6.0',     upload = True),
-    BuildWorker(slave = 'pragma-openbsd6.1-i386',      code = 'prg', profile = builder_profiles['openbsd_cxx11'],    name = 'openbsd-i386-6.1.prg',     arch = 'i386',    tlname = 'i386-openbsd6.1',     upload = True),
-    BuildWorker(slave = 'pragma-openbsd6.0-amd64',     code = 'prg', profile = builder_profiles['openbsd_cxx11'],    name = 'openbsd-amd64-6.0.prg',    arch = 'amd64',   tlname = 'amd64-openbsd6.0',    upload = True),
-    BuildWorker(slave = 'pragma-openbsd6.1-amd64',     code = 'prg', profile = builder_profiles['openbsd_cxx11'],    name = 'openbsd-amd64-6.1.prg',    arch = 'amd64',   tlname = 'amd64-openbsd6.1',    upload = True),
+#    BuildWorker(slave = 'pragma-openbsd6.0-i386',      code = 'prg', profile = builder_profiles['openbsd_old'],      name = 'openbsd-i386-6.0.prg',     arch = 'i386',    tlname = 'i386-openbsd6.0',     upload = True),
+#    BuildWorker(slave = 'pragma-openbsd6.1-i386',      code = 'prg', profile = builder_profiles['openbsd_old'],      name = 'openbsd-i386-6.1.prg',     arch = 'i386',    tlname = 'i386-openbsd6.1',     upload = True),
+    BuildWorker(slave = 'pragma-openbsd6.2-i386',      code = 'prg', profile = builder_profiles['openbsd'],          name = 'openbsd-i386-6.2.prg',     arch = 'i386',    tlname = 'i386-openbsd6.2',     upload = True),
+#    BuildWorker(slave = 'pragma-openbsd6.0-amd64',     code = 'prg', profile = builder_profiles['openbsd_old'],      name = 'openbsd-amd64-6.0.prg',    arch = 'amd64',   tlname = 'amd64-openbsd6.0',    upload = True),
+#    BuildWorker(slave = 'pragma-openbsd6.1-amd64',     code = 'prg', profile = builder_profiles['openbsd_old'],      name = 'openbsd-amd64-6.1.prg',    arch = 'amd64',   tlname = 'amd64-openbsd6.1',    upload = True),
+    BuildWorker(slave = 'pragma-openbsd6.2-amd64',     code = 'prg', profile = builder_profiles['openbsd'],          name = 'openbsd-amd64-6.2.prg',    arch = 'amd64',   tlname = 'amd64-openbsd6.2',    upload = True),
     BuildWorker(slave = 'pragma-freebsd-i386',         code = 'prg', profile = builder_profiles['freebsd'],          name = 'freebsd-i386.prg',         arch = 'i386',    tlname = 'i386-freebsd',        upload = True),
     BuildWorker(slave = 'pragma-freebsd-amd64',        code = 'prg', profile = builder_profiles['freebsd'],          name = 'freebsd-amd64.prg',        arch = 'amd64',   tlname = 'amd64-freebsd',       upload = True),
     BuildWorker(slave = 'pragma-linux-debian9-armhf',  code = 'prg', profile = builder_profiles['linux'],            name = 'linux-armhf-debian9.prg',  arch = 'armhf',   tlname = 'armhf-linux',         upload = True),
