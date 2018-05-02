@@ -156,7 +156,7 @@ builder_list = [
 #   BuildWorker(slave = 'boris-linux-armel',           code = 'bor', profile = builder_profiles['linux'],            name = 'linux-armel.bor',          arch = 'armel',   tlname = 'armel-linux',         upload = True),
 
 #   BuildWorker(slave = 'darwin10-x86_64',             code = 'prg', profile = builder_profiles['darwin10-powerpc'],       name = 'darwin-powerpc.prg', arch = 'powerpc', tlname = 'powerpc-darwin',      upload = True),
-    BuildWorker(slave = 'darwin10-x86_64',             code = 'prg', profile = builder_profiles['darwin10_libc++-i386'],   name = 'darwin-i386.prg',    arch = 'i386',    tlname = 'i386-darwin',         upload = True),
+#   BuildWorker(slave = 'darwin10-x86_64',             code = 'prg', profile = builder_profiles['darwin10_libc++-i386'],   name = 'darwin-i386.prg',    arch = 'i386',    tlname = 'i386-darwin',         upload = True),
     BuildWorker(slave = 'darwin10-x86_64',             code = 'prg', profile = builder_profiles['darwin10_libc++-x86_64'], name = 'darwin-x86_64.prg',  arch = 'x86_64',  tlname = 'x86_64-darwinlegacy', upload = True),
 ]
 
