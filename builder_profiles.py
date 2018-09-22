@@ -96,6 +96,7 @@ env_openbsd_old = {
 env_freebsd = {}
 env_linux = {}
 env_mingw = {}
+env_mingw['any'] = {}
 for arch in ['32', '64']:
     if arch == '32':
         name = 'i686-w64-mingw32'
@@ -120,6 +121,7 @@ builder_profiles = {
     'linux'            : BuilderProfile(platform = 'linux',   env = env_linux,              cmd_make = 'make',  cmd_tar = 'tar',    cxx11 = True),
     'linux-mingw32'    : BuilderProfile(platform = 'mingw',   env = env_mingw['32'],        cmd_make = 'make',  cmd_tar = 'tar',    cxx11 = True),
     'linux-mingw64'    : BuilderProfile(platform = 'mingw',   env = env_mingw['64'],        cmd_make = 'make',  cmd_tar = 'tar',    cxx11 = True),
+    'mingw-cross'      : BuilderProfile(platform = 'mingw',   env = env_mingw['any'],       cmd_make = 'make',  cmd_tar = 'tar',    cxx11 = True),
 
     'darwin10-i386'             : BuilderProfile(platform = 'darwin',  env = env_darwin10['i386'][''],            cmd_make = 'make',  cmd_tar = 'gnutar', cxx11 = False),
     'darwin10-x86_64'           : BuilderProfile(platform = 'darwin',  env = env_darwin10['x86_64'][''],          cmd_make = 'make',  cmd_tar = 'gnutar', cxx11 = False),
@@ -158,5 +160,6 @@ builder_list = [
 #   BuildWorker(slave = 'darwin10-x86_64',             code = 'prg', profile = builder_profiles['darwin10-powerpc'],       name = 'darwin-powerpc.prg', arch = 'powerpc', tlname = 'powerpc-darwin',      upload = True),
 #   BuildWorker(slave = 'darwin10-x86_64',             code = 'prg', profile = builder_profiles['darwin10_libc++-i386'],   name = 'darwin-i386.prg',    arch = 'i386',    tlname = 'i386-darwin',         upload = True),
     BuildWorker(slave = 'darwin10-x86_64',             code = 'prg', profile = builder_profiles['darwin10_libc++-x86_64'], name = 'darwin-x86_64.prg',  arch = 'x86_64',  tlname = 'x86_64-darwinlegacy', upload = True),
+    BuildWorker(slave = 'darwin17-x86_64',             code = 'prg', profile = builder_profiles['mingw-cross'],      name = 'mingw-w64-x86_64.prg',     arch = 'x86_64',  tlname = 'x86_64-w64-mingw32',  upload = True)
 ]
 
