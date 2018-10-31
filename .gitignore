@@ -4,9 +4,15 @@ state.sqlite
 twistd.*
 
 master.cfg.sample
+*.pyc
 
 public_html/
 templates/
+
+texlive_*/
+luatex_*/
+wget_*/
+xz_*/
 
 slaves.json
 htpasswd
