@@ -48,10 +48,10 @@ for arch in ['ppc', 'i386', 'x86_64']:
 
     cc[''] = '/usr/bin/gcc-4.2'
     cxx[''] = '/usr/bin/g++-4.2'
-    cc['libc++'] = '/opt/local/bin/clang-mp-5.0'
-    cxx['libc++'] = '/opt/local/bin/clang++-mp-5.0 -stdlib=libc++'
-    cc['libstdc++'] = '/opt/local/bin/clang-mp-5.0'
-    cxx['libstdc++'] = '/opt/local/bin/clang++-mp-5.0 -stdlib=macports-libstdc++ -D_GLIBCXX_USE_CXX11_ABI=0'
+    cc['libc++'] = '/opt/local/bin/clang-mp-7.0'
+    cxx['libc++'] = '/opt/local/bin/clang++-mp-7.0 -stdlib=libc++'
+    cc['libstdc++'] = '/opt/local/bin/clang-mp-7.0'
+    cxx['libstdc++'] = '/opt/local/bin/clang++-mp-7.0 -stdlib=macports-libstdc++ -D_GLIBCXX_USE_CXX11_ABI=0'
 
     for stdlib in ['', 'libc++', 'libstdc++']:
         if arch == 'x86_64':
