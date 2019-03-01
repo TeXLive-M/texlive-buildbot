@@ -138,7 +138,7 @@ builder_profiles = {
 builder_list = [
     BuildWorker(slave = 'solaris10-i386',              code = 'csw', profile = builder_profiles['solaris10-i386'],   name = 'solaris-i386.csw',         arch = 'i386',    tlname = 'i386-solaris',        upload = True),
     BuildWorker(slave = 'solaris10-i386',              code = 'csw', profile = builder_profiles['solaris10-x86_64'], name = 'solaris-x86_64.csw',       arch = 'x86_64',  tlname = 'x86_64-solaris',      upload = True),
-    BuildWorker(slave = 'solaris10-sparc',             code = 'csw', profile = builder_profiles['solaris10-sparc'],  name = 'solaris-sparc.csw',        arch = 'sparc',   tlname = 'sparc-solaris',       upload = True),
+#   BuildWorker(slave = 'solaris10-sparc',             code = 'csw', profile = builder_profiles['solaris10-sparc'],  name = 'solaris-sparc.csw',        arch = 'sparc',   tlname = 'sparc-solaris',       upload = True),
     BuildWorker(slave = 'pragma-openbsd6.3-i386',      code = 'prg', profile = builder_profiles['openbsd'],          name = 'openbsd-i386-6.3.prg',     arch = 'i386',    tlname = 'i386-openbsd6.3',     upload = True),
 #   BuildWorker(slave = 'pragma-openbsd6.4-i386',      code = 'prg', profile = builder_profiles['openbsd'],          name = 'openbsd-i386-6.4.prg',     arch = 'i386',    tlname = 'i386-openbsd6.4',     upload = True),
     BuildWorker(slave = 'pragma-openbsd6.3-amd64',     code = 'prg', profile = builder_profiles['openbsd'],          name = 'openbsd-amd64-6.3.prg',    arch = 'amd64',   tlname = 'amd64-openbsd6.3',    upload = True),
