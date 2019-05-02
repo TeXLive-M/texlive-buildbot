@@ -11,9 +11,7 @@ templates/
 
 texlive_*/
 luatex_*/
-wget_*/
-xz_*/
 
-slaves.json
+workers.json
 htpasswd
 

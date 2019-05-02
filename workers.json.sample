@@ -1,0 +1,21 @@
+{
+    "workers" : [
+        { "name": "solaris10-i386",              "pwd": "xxx" },
+        { "name": "solaris10-sparc",             "pwd": "xxx" },
+        { "name": "darwin10-x86_64",             "pwd": "xxx" },
+        { "name": "darwin17-x86_64",             "pwd": "xxx" },
+        { "name": "pragma-linux-debian9-armhf",  "pwd": "xxx" },
+        { "name": "pragma-linux-debian8-x86_64", "pwd": "xxx" },
+        { "name": "pragma-linux-debian8-i386",   "pwd": "xxx" },
+        { "name": "pragma-linux-debian9-x86_64", "pwd": "xxx" },
+        { "name": "pragma-linux-debian9-i386",   "pwd": "xxx" },
+        { "name": "pragma-freebsd-amd64",        "pwd": "xxx" },
+        { "name": "pragma-freebsd-i386",         "pwd": "xxx" },
+        { "name": "pragma-openbsd63-amd64",      "pwd": "xxx" },
+        { "name": "pragma-openbsd63-i386",       "pwd": "xxx" },
+        { "name": "pragma-openbsd64-amd64",      "pwd": "xxx" },
+        { "name": "pragma-openbsd64-i386",       "pwd": "xxx" },
+        { "name": "pragma-openbsd65-amd64",      "pwd": "xxx" },
+        { "name": "pragma-openbsd65-i386",       "pwd": "xxx" }
+    ]
+}

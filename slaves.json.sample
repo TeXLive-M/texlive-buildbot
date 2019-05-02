@@ -1,7 +1,0 @@
-{
-	"slaves" : {
-		"solaris10-i386"     : "pass",
-		"solaris10-sparc"    : "pass",
-		"darwin10-x86_64"    : "pass",
-	}
-}
