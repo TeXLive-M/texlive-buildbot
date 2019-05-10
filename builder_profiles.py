@@ -81,6 +81,7 @@ env_openbsd = {
 
 env_freebsd = {}
 env_linux = {}
+env_darwin = {}
 env_mingw = {}
 env_mingw['any'] = {}
 for arch in ['32', '64']:
@@ -109,6 +110,7 @@ builder_profiles = {
     'mingw-cross'      : BuilderProfile(platform = 'mingw',   env = env_mingw['any'],       cmd_make = 'make',  cmd_tar = 'tar',    cxx11 = True),
     'darwin10-i386'    : BuilderProfile(platform = 'darwin',  env = env_darwin10['i386'],   cmd_make = 'make',  cmd_tar = 'gnutar', cxx11 = True),
     'darwin10-x86_64'  : BuilderProfile(platform = 'darwin',  env = env_darwin10['x86_64'], cmd_make = 'make',  cmd_tar = 'gnutar', cxx11 = True),
+    'darwin'           : BuilderProfile(platform = 'darwin',  env = env_darwin,             cmd_make = 'make',  cmd_tar = 'gnutar', cxx11 = True),
 }
 
 # worker:  name of the worker
@@ -128,6 +130,7 @@ builder_list = [
     BuildWorker(worker = 'pragma-linux-debian9-i386',   code = 'prg', profile = builder_profiles['linux'],            name = 'linux-i386-debian9.prg',   arch = 'i386',    tlname = None,                  upload = False),
     BuildWorker(worker = 'pragma-linux-debian8-x86_64', code = 'prg', profile = builder_profiles['linux'],            name = 'linux-x86_64-debian8.prg', arch = 'x86_64',  tlname = 'x86_64-linux',        upload = True),
     BuildWorker(worker = 'pragma-linux-debian9-x86_64', code = 'prg', profile = builder_profiles['linux'],            name = 'linux-x86_64-debian9.prg', arch = 'x86_64',  tlname = None,                  upload = False),
-    BuildWorker(worker = 'darwin10-x86_64',             code = 'prg', profile = builder_profiles['darwin10-x86_64'],  name = 'darwin-x86_64.prg',        arch = 'x86_64',  tlname = 'x86_64-darwinlegacy', upload = True),
+    BuildWorker(worker = 'darwin10-x86_64',             code = 'prg', profile = builder_profiles['darwin10-x86_64'],  name = 'darwin10-x86_64.prg',      arch = 'x86_64',  tlname = 'x86_64-darwinlegacy', upload = True),
+    BuildWorker(worker = 'darwin17-x86_64',             code = 'prg', profile = builder_profiles['darwin'],           name = 'darwin-x86_64.prg',        arch = 'x86_64',  tlname = 'x86_64-darwin',       upload = False),
 ]
 
