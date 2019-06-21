@@ -132,5 +132,6 @@ builder_list = [
     BuildWorker(worker = 'pragma-linux-debian9-x86_64', code = 'prg', profile = builder_profiles['linux'],            name = 'linux-x86_64-debian9.prg', arch = 'x86_64',  tlname = None,                  upload = False),
     BuildWorker(worker = 'darwin10-x86_64',             code = 'prg', profile = builder_profiles['darwin10-x86_64'],  name = 'darwin10-x86_64.prg',      arch = 'x86_64',  tlname = 'x86_64-darwinlegacy', upload = True),
     BuildWorker(worker = 'darwin17-x86_64',             code = 'prg', profile = builder_profiles['darwin'],           name = 'darwin-x86_64.prg',        arch = 'x86_64',  tlname = 'x86_64-darwin',       upload = False),
+    BuildWorker(worker = 'pragma-linux-debian10-x86_64', code = 'prg', profile = builder_profiles['mingw-cross'],     name = 'mingw-x86_64.prg',         arch = 'x86_64',  tlname = 'x86_64-w64-mingw32',  upload = False),
 ]
 
