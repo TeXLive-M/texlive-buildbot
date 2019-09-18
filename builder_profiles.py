@@ -128,7 +128,7 @@ builder_list = [
     BuildWorker(worker = 'pragma-openbsd65-amd64',      code = 'prg', profile = builder_profiles['openbsd'],          name = 'openbsd-amd64-6.5.prg',    arch = 'amd64',   tlname = 'amd64-openbsd6.5',    upload = True),
     BuildWorker(worker = 'pragma-freebsd-i386',         code = 'prg', profile = builder_profiles['freebsd'],          name = 'freebsd-i386.prg',         arch = 'i386',    tlname = 'i386-freebsd',        upload = True),
     BuildWorker(worker = 'pragma-freebsd-amd64',        code = 'prg', profile = builder_profiles['freebsd'],          name = 'freebsd-amd64.prg',        arch = 'amd64',   tlname = 'amd64-freebsd',       upload = True),
-    BuildWorker(worker = 'pragma-linux-debian9-armhf',  code = 'prg', profile = builder_profiles['linux'],            name = 'linux-armhf-debian9.prg',  arch = 'armhf',   tlname = 'armhf-linux',         upload = True),
+    BuildWorker(worker = 'pragma-linux-debian10-armhf', code = 'prg', profile = builder_profiles['linux'],            name = 'linux-armhf-debian10.prg', arch = 'armhf',   tlname = 'armhf-linux',         upload = True),
     BuildWorker(worker = 'pragma-linux-debian8-i386',   code = 'prg', profile = builder_profiles['linux'],            name = 'linux-i386-debian8.prg',   arch = 'i386',    tlname = 'i386-linux',          upload = True),
     BuildWorker(worker = 'pragma-linux-debian9-i386',   code = 'prg', profile = builder_profiles['linux'],            name = 'linux-i386-debian9.prg',   arch = 'i386',    tlname = None,                  upload = False),
     BuildWorker(worker = 'pragma-linux-debian8-x86_64', code = 'prg', profile = builder_profiles['linux'],            name = 'linux-x86_64-debian8.prg', arch = 'x86_64',  tlname = 'x86_64-linux',        upload = True),
