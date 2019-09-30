@@ -37,10 +37,11 @@ class BuildWorker(object):
         self.cmd_tar  = profile.cmd_tar
         self.cxx11    = profile.cxx11
 
-        self.build_luametatex = (self.platform in ['darwin', 'freebsd', 'openbsd', 'linux', 'mingw']) and (not 'debian8' in self.name)
-        self.build_pplib = (self.platform in ['darwin', 'freebsd', 'openbsd', 'linux']) and (not 'debian8' in self.name)
-        self.build_luatex = not (self.platform in ['mingw'])
-        self.build_texlive = not (self.platform in ['mingw'])
+        self.build = {}
+        self.build['luametatex'] = (self.platform in ['darwin', 'freebsd', 'openbsd', 'linux', 'mingw']) and (not 'debian8' in self.name)
+        self.build['pplib']      = (self.platform in ['darwin', 'freebsd', 'openbsd', 'linux'])          and (not 'debian8' in self.name)
+        self.build['luatex']     = not (self.platform in ['mingw'])
+        self.build['texlive']    = not (self.platform in ['mingw'])
 
 env_darwin10 = {}
 for arch in ['i386', 'x86_64']:
