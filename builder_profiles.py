@@ -38,7 +38,7 @@ class BuildWorker(object):
         self.cxx11    = profile.cxx11
 
         self.build = {}
-        self.build['luametatex'] = (self.platform in ['darwin', 'freebsd', 'openbsd', 'linux', 'mingw']) and (not 'debian8' in self.name)
+        self.build['luametatex'] = (self.platform in ['darwin', 'freebsd', 'openbsd', 'linux', 'mingw']) and (not 'debian8' in self.name) and (self.code == 'prg')
         self.build['pplib']      = (self.platform in ['darwin', 'freebsd', 'openbsd', 'linux'])          and (not 'debian8' in self.name)
         self.build['luatex']     = not (self.platform in ['mingw'])
         self.build['texlive']    = not (self.platform in ['mingw'])
