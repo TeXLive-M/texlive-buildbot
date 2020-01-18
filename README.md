@@ -2,55 +2,46 @@
 
 This is a buildbot setup that's intended to build TeX Live binaries for various platforms.
 
-* [http://build.contextgarden.net](http://build.contextgarden.net/waterfall)
+* [https://build.contextgarden.net/](https://build.contextgarden.net/#/grid)
 
 ### Binaries
 
-The list of desired builds includes:
+The binaries currently being compiled include:
+- Full TeX Live tree ([sources](http://tug.org/svn/texlive/trunk/Build/source/))
+- LuaTeX
+- LuaMetaTeX
+- pplib
 
-- [x] Full TeX Live tree ([sources](http://tug.org/svn/texlive/trunk/Build/source/))
-- [ ] LuaTeX
-- [ ] XeTeX
-- [ ] Asymptote, including:
+The list of other build candidates includes:
+
+- Asymptote, including:
   * FFTW (fast Fourier transform library)
   * GSL (GNU Scientific Library)
   * GNU Readline
-- [ ] xindy, including:
+- xindy, including:
   * `libffcall`
   * `libsigsegv`
   * `clisp`
-- [ ] Biber
-- [x] `xz`
-- [x] `wget`
-- [ ] `gpg`
+- Biber
+- `xz`
+- `wget`
+- `gpg`
 
 ### Platforms
 
-The desired list of target platforms:
-- [x] Mac OS X 10.6
-  * `powerpc` (cross-compiled for 10.5)
-  * `i386` (cross-compiled for 10.5)
-  * `x86_64`
-- [x] Solaris 10
-  * `sparc`
-  * `i386`
-  * `x86_64`
-- [x] GNU/Linux arm – Raspbian on Raspberry PI
-- [x] GNU/Linux Debian 7 & 9
-  * `i386`
-  * `x86_64`
-- [ ] FreeBSD 9 & 11
-  * `i386`
-  * `amd64`
-- [ ] NetBSD
-- [x] OpenBSD 6.0 & 6.1
-  * `i386`
-  * `amd64`
-- [ ] MinGW-w64 cross-compiler
-  * `win32`
-  * `win64`
+The binaries are being built on:
+- Mac OS X 10.6 (`x86_64`)
+- Solaris 10 (`sparc`, `i386`, `x86_64`)
+- GNU/Linux (`arm`) – Raspbian on Raspberry PI 4
+- GNU/Linux Debian 8 & 9 (`i386`, `x86_64`)
+- GNU/Linux Alpine with musl (`x86_64`)
+- FreeBSD 12.1
+- OpenBSD 6.5 & 6.6 (`i386`, `amd64`)
+- MinGW-w64 cross-compiler (`win32`, `win64`)
 
-A separate setup is needed in cases where C++11 is not supported.
+It might be nice to also include:
+- NetBSD
+- GNU/Linux (`arm64`)
 
 ### Credits and Special thanks
 
