@@ -40,19 +40,20 @@ class BuildWorker(object):
         self.build = {}
         self.build['luametatex'] = (self.platform in ['darwin', 'freebsd', 'openbsd', 'linux', 'mingw']) and (not 'debian8' in self.name) and (self.code == 'prg')
         self.build['pplib']      = (self.platform in ['darwin', 'freebsd', 'openbsd', 'linux'])          and (not 'debian8' in self.name)
-        self.build['luatex']     = not (self.platform in ['mingw'])
+        self.build['luatex']     = not ((self.platform in ['mingw']) or (self.arch in ['sparc']))
         self.build['texlive']    = not (self.platform in ['mingw'])
 
 env_darwin10 = {}
 for arch in ['i386', 'x86_64']:
     env_darwin10[arch] = {}
 
-    cc     = '/opt/local/bin/clang-mp-7.0'
-    cxx    = '/opt/local/bin/clang++-mp-7.0 -stdlib=libc++'
+    cc     = '/opt/local/bin/clang-mp-9.0'
+    cxx    = '/opt/local/bin/clang++-mp-9.0 -stdlib=libc++'
     target = '10.6'
+    sdk    = '10.6' # '10.7'
 
-    libdir  = '-L/Developer/SDKs/MacOSX{}.sdk/usr/lib'.format(target)
-    sysroot = '-isysroot /Developer/SDKs/MacOSX{}.sdk -mmacosx-version-min={}'.format(target, target)
+    libdir  = '-L/Developer/SDKs/MacOSX{}.sdk/usr/lib'.format(sdk)
+    sysroot = '-isysroot /Developer/SDKs/MacOSX{}.sdk -mmacosx-version-min={}'.format(sdk, target)
     ldflags = libdir + ' ' + sysroot
 
     env_darwin10[arch]['CC']     = '{} -arch {}'.format(cc,  arch)
@@ -65,6 +66,7 @@ for arch in ['i386', 'x86_64']:
     env_darwin10[arch]['LDFLAGS'] = '-Os {}'.format(ldflags)
 
     env_darwin10[arch]['STRIP'] = 'strip -u -r'
+    env_darwin10[arch]['PYTHON'] = '/opt/local/bin/python3.8'
 
 env_solaris10 = {
     'CC'      : '/opt/csw/bin/gcc-5.5',
@@ -123,18 +125,20 @@ builder_profiles = {
 builder_list = [
     BuildWorker(worker = 'solaris10-i386',              code = 'csw', profile = builder_profiles['solaris10-i386'],   name = 'solaris-i386.csw',         arch = 'i386',    tlname = 'i386-solaris',        upload = True),
     BuildWorker(worker = 'solaris10-i386',              code = 'csw', profile = builder_profiles['solaris10-x86_64'], name = 'solaris-x86_64.csw',       arch = 'x86_64',  tlname = 'x86_64-solaris',      upload = True),
-    BuildWorker(worker = 'pragma-openbsd64-i386',       code = 'prg', profile = builder_profiles['openbsd'],          name = 'openbsd-i386-6.4.prg',     arch = 'i386',    tlname = 'i386-openbsd6.4',     upload = True),
+    BuildWorker(worker = 'solaris10-sparc',             code = 'csw', profile = builder_profiles['solaris10-sparc'],  name = 'solaris-sparc.csw',        arch = 'sparc',   tlname = 'sparc-solaris',       upload = False),
     BuildWorker(worker = 'pragma-openbsd65-i386',       code = 'prg', profile = builder_profiles['openbsd'],          name = 'openbsd-i386-6.5.prg',     arch = 'i386',    tlname = 'i386-openbsd6.5',     upload = True),
-    BuildWorker(worker = 'pragma-openbsd64-amd64',      code = 'prg', profile = builder_profiles['openbsd'],          name = 'openbsd-amd64-6.4.prg',    arch = 'amd64',   tlname = 'amd64-openbsd6.4',    upload = True),
+    BuildWorker(worker = 'pragma-openbsd66-i386',       code = 'prg', profile = builder_profiles['openbsd'],          name = 'openbsd-i386-6.6.prg',     arch = 'i386',    tlname = 'i386-openbsd6.6',     upload = True),
     BuildWorker(worker = 'pragma-openbsd65-amd64',      code = 'prg', profile = builder_profiles['openbsd'],          name = 'openbsd-amd64-6.5.prg',    arch = 'amd64',   tlname = 'amd64-openbsd6.5',    upload = True),
+    BuildWorker(worker = 'pragma-openbsd66-amd64',      code = 'prg', profile = builder_profiles['openbsd'],          name = 'openbsd-amd64-6.6.prg',    arch = 'amd64',   tlname = 'amd64-openbsd6.6',    upload = True),
     BuildWorker(worker = 'pragma-freebsd-i386',         code = 'prg', profile = builder_profiles['freebsd'],          name = 'freebsd-i386.prg',         arch = 'i386',    tlname = 'i386-freebsd',        upload = True),
     BuildWorker(worker = 'pragma-freebsd-amd64',        code = 'prg', profile = builder_profiles['freebsd'],          name = 'freebsd-amd64.prg',        arch = 'amd64',   tlname = 'amd64-freebsd',       upload = True),
     BuildWorker(worker = 'pragma-linux-debian10-armhf', code = 'prg', profile = builder_profiles['linux'],            name = 'linux-armhf-debian10.prg', arch = 'armhf',   tlname = 'armhf-linux',         upload = True),
-    BuildWorker(worker = 'pragma-linux-debian8-i386',   code = 'prg', profile = builder_profiles['linux'],            name = 'linux-i386-debian8.prg',   arch = 'i386',    tlname = 'i386-linux',          upload = True),
-    BuildWorker(worker = 'pragma-linux-debian9-i386',   code = 'prg', profile = builder_profiles['linux'],            name = 'linux-i386-debian9.prg',   arch = 'i386',    tlname = 'i386-linux',          upload = False),
-    BuildWorker(worker = 'pragma-linux-debian8-x86_64', code = 'prg', profile = builder_profiles['linux'],            name = 'linux-x86_64-debian8.prg', arch = 'x86_64',  tlname = 'x86_64-linux',        upload = True),
-    BuildWorker(worker = 'pragma-linux-debian9-x86_64', code = 'prg', profile = builder_profiles['linux'],            name = 'linux-x86_64-debian9.prg', arch = 'x86_64',  tlname = 'x86_64-linux',        upload = False),
-    BuildWorker(worker = 'darwin10-x86_64',             code = 'prg', profile = builder_profiles['darwin10-x86_64'],  name = 'darwin10-x86_64.prg',      arch = 'x86_64',  tlname = 'x86_64-darwinlegacy', upload = True),
+    BuildWorker(worker = 'pragma-linux-debian8-i386',   code = 'prg', profile = builder_profiles['linux'],            name = 'linux-i386-debian8.prg',   arch = 'i386',    tlname = 'i386-linux',          upload = False),
+    BuildWorker(worker = 'pragma-linux-debian9-i386',   code = 'prg', profile = builder_profiles['linux'],            name = 'linux-i386-debian9.prg',   arch = 'i386',    tlname = 'i386-linux',          upload = True),
+    BuildWorker(worker = 'pragma-linux-debian8-x86_64', code = 'prg', profile = builder_profiles['linux'],            name = 'linux-x86_64-debian8.prg', arch = 'x86_64',  tlname = 'x86_64-linux',        upload = False),
+    BuildWorker(worker = 'pragma-linux-debian9-x86_64', code = 'prg', profile = builder_profiles['linux'],            name = 'linux-x86_64-debian9.prg', arch = 'x86_64',  tlname = 'x86_64-linux',        upload = True),
+    BuildWorker(worker = 'thomas-darwin10-x86_64',      code = 'tho', profile = builder_profiles['darwin10-x86_64'],  name = 'darwin10-x86_64.tho',      arch = 'x86_64',  tlname = 'x86_64-darwinlegacy', upload = True),
+    BuildWorker(worker = 'darwin10-x86_64',             code = 'prg', profile = builder_profiles['darwin10-x86_64'],  name = 'darwin10-x86_64.prg',      arch = 'x86_64',  tlname = 'x86_64-darwinlegacy', upload = False),
     BuildWorker(worker = 'darwin17-x86_64',             code = 'prg', profile = builder_profiles['darwin'],           name = 'darwin-x86_64.prg',        arch = 'x86_64',  tlname = 'x86_64-darwin',       upload = False),
     BuildWorker(worker = 'pragma-linux-debian10-x86_64', code = 'prg', profile = builder_profiles['mingw-cross'],     name = 'mingw-x86_64.prg',         arch = 'x86_64',  tlname = 'x86_64-w64-mingw32',  upload = True),
     BuildWorker(worker = 'pragma-linux-debian10-x86_64', code = 'prg', profile = builder_profiles['mingw-cross'],     name = 'mingw-i686.prg',           arch = 'i386',    tlname = 'i686-w64-mingw32',    upload = True),
