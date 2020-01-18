@@ -87,6 +87,10 @@ env_openbsd = {
 
 env_freebsd = {}
 env_linux = {}
+env_linux_clang = {
+    'CC'      : 'clang',
+    'CXX'     : 'clang++',
+}
 env_darwin = {}
 env_mingw = {}
 env_mingw['any'] = {}
@@ -111,6 +115,7 @@ builder_profiles = {
     'freebsd'          : BuilderProfile(platform = 'freebsd', env = env_freebsd,            cmd_make = 'gmake', cmd_tar = 'gtar',   cxx11 = True),
     'openbsd'          : BuilderProfile(platform = 'openbsd', env = env_openbsd,            cmd_make = 'gmake', cmd_tar = 'gtar',   cxx11 = True),
     'linux'            : BuilderProfile(platform = 'linux',   env = env_linux,              cmd_make = 'make',  cmd_tar = 'tar',    cxx11 = True),
+    'linux-clang'      : BuilderProfile(platform = 'linux',   env = env_linux_clang,        cmd_make = 'make',  cmd_tar = 'tar',    cxx11 = True),
     'linux-mingw32'    : BuilderProfile(platform = 'mingw',   env = env_mingw['32'],        cmd_make = 'make',  cmd_tar = 'tar',    cxx11 = True),
     'linux-mingw64'    : BuilderProfile(platform = 'mingw',   env = env_mingw['64'],        cmd_make = 'make',  cmd_tar = 'tar',    cxx11 = True),
     'mingw-cross'      : BuilderProfile(platform = 'mingw',   env = env_mingw['any'],       cmd_make = 'make',  cmd_tar = 'tar',    cxx11 = True),
@@ -132,6 +137,7 @@ builder_list = [
     BuildWorker(worker = 'pragma-openbsd66-amd64',      code = 'prg', profile = builder_profiles['openbsd'],          name = 'openbsd-amd64-6.6.prg',    arch = 'amd64',   tlname = 'amd64-openbsd6.6',    upload = True),
     BuildWorker(worker = 'pragma-freebsd-i386',         code = 'prg', profile = builder_profiles['freebsd'],          name = 'freebsd-i386.prg',         arch = 'i386',    tlname = 'i386-freebsd',        upload = True),
     BuildWorker(worker = 'pragma-freebsd-amd64',        code = 'prg', profile = builder_profiles['freebsd'],          name = 'freebsd-amd64.prg',        arch = 'amd64',   tlname = 'amd64-freebsd',       upload = True),
+    BuildWorker(worker = 'pragma-linux-alpine-x86_64',  code = 'prg', profile = builder_profiles['linux-clang'],      name = 'linuxmusl-x86_64-alpine.prg', arch = 'x86_64', tlname = 'x86_64-linuxmusl',  upload = True),
     BuildWorker(worker = 'pragma-linux-debian10-armhf', code = 'prg', profile = builder_profiles['linux'],            name = 'linux-armhf-debian10.prg', arch = 'armhf',   tlname = 'armhf-linux',         upload = True),
     BuildWorker(worker = 'pragma-linux-debian8-i386',   code = 'prg', profile = builder_profiles['linux'],            name = 'linux-i386-debian8.prg',   arch = 'i386',    tlname = 'i386-linux',          upload = False),
     BuildWorker(worker = 'pragma-linux-debian9-i386',   code = 'prg', profile = builder_profiles['linux'],            name = 'linux-i386-debian9.prg',   arch = 'i386',    tlname = 'i386-linux',          upload = True),
