@@ -6,12 +6,11 @@
 # - make and tar command to be used
 # - is it capable of building C++11 code?
 class BuilderProfile(object):
-    def __init__(self, platform, env = {}, cmd_make = 'make', cmd_tar = 'tar', cxx11 = True):
+    def __init__(self, platform, env = {}, cmd_make = 'make', cmd_tar = 'tar'):
         self.platform = platform
         self.env      = env
         self.cmd_make = cmd_make
         self.cmd_tar  = cmd_tar
-        self.cxx11    = cxx11
 
 # Builder:
 # - worker name
@@ -35,7 +34,6 @@ class BuildWorker(object):
         self.env      = profile.env
         self.cmd_make = profile.cmd_make
         self.cmd_tar  = profile.cmd_tar
-        self.cxx11    = profile.cxx11
 
         self.build = {}
         self.build['luametatex'] = (self.platform in ['darwin', 'freebsd', 'openbsd', 'linux', 'mingw']) and (not 'debian8' in self.name) and (self.code == 'prg')
@@ -109,19 +107,19 @@ for arch in ['32', '64']:
     }
 
 builder_profiles = {
-    'solaris10-sparc'  : BuilderProfile(platform = 'solaris', env = env_solaris10,          cmd_make = 'gmake', cmd_tar = 'gtar',   cxx11 = True),
-    'solaris10-i386'   : BuilderProfile(platform = 'solaris', env = env_solaris10,          cmd_make = 'gmake', cmd_tar = 'gtar',   cxx11 = True),
-    'solaris10-x86_64' : BuilderProfile(platform = 'solaris', env = env_solaris10_64,       cmd_make = 'gmake', cmd_tar = 'gtar',   cxx11 = True),
-    'freebsd'          : BuilderProfile(platform = 'freebsd', env = env_freebsd,            cmd_make = 'gmake', cmd_tar = 'gtar',   cxx11 = True),
-    'openbsd'          : BuilderProfile(platform = 'openbsd', env = env_openbsd,            cmd_make = 'gmake', cmd_tar = 'gtar',   cxx11 = True),
-    'linux'            : BuilderProfile(platform = 'linux',   env = env_linux,              cmd_make = 'make',  cmd_tar = 'tar',    cxx11 = True),
-    'linux-clang'      : BuilderProfile(platform = 'linux',   env = env_linux_clang,        cmd_make = 'make',  cmd_tar = 'tar',    cxx11 = True),
-    'linux-mingw32'    : BuilderProfile(platform = 'mingw',   env = env_mingw['32'],        cmd_make = 'make',  cmd_tar = 'tar',    cxx11 = True),
-    'linux-mingw64'    : BuilderProfile(platform = 'mingw',   env = env_mingw['64'],        cmd_make = 'make',  cmd_tar = 'tar',    cxx11 = True),
-    'mingw-cross'      : BuilderProfile(platform = 'mingw',   env = env_mingw['any'],       cmd_make = 'make',  cmd_tar = 'tar',    cxx11 = True),
-    'darwin10-i386'    : BuilderProfile(platform = 'darwin',  env = env_darwin10['i386'],   cmd_make = 'make',  cmd_tar = 'gnutar', cxx11 = True),
-    'darwin10-x86_64'  : BuilderProfile(platform = 'darwin',  env = env_darwin10['x86_64'], cmd_make = 'make',  cmd_tar = 'gnutar', cxx11 = True),
-    'darwin'           : BuilderProfile(platform = 'darwin',  env = env_darwin,             cmd_make = 'make',  cmd_tar = 'gnutar', cxx11 = True),
+    'solaris10-sparc'  : BuilderProfile(platform = 'solaris', env = env_solaris10,          cmd_make = 'gmake', cmd_tar = 'gtar'),
+    'solaris10-i386'   : BuilderProfile(platform = 'solaris', env = env_solaris10,          cmd_make = 'gmake', cmd_tar = 'gtar'),
+    'solaris10-x86_64' : BuilderProfile(platform = 'solaris', env = env_solaris10_64,       cmd_make = 'gmake', cmd_tar = 'gtar'),
+    'freebsd'          : BuilderProfile(platform = 'freebsd', env = env_freebsd,            cmd_make = 'gmake', cmd_tar = 'gtar'),
+    'openbsd'          : BuilderProfile(platform = 'openbsd', env = env_openbsd,            cmd_make = 'gmake', cmd_tar = 'gtar'),
+    'linux'            : BuilderProfile(platform = 'linux',   env = env_linux,              cmd_make = 'make',  cmd_tar = 'tar'),
+    'linux-clang'      : BuilderProfile(platform = 'linux',   env = env_linux_clang,        cmd_make = 'make',  cmd_tar = 'tar'),
+    'linux-mingw32'    : BuilderProfile(platform = 'mingw',   env = env_mingw['32'],        cmd_make = 'make',  cmd_tar = 'tar'),
+    'linux-mingw64'    : BuilderProfile(platform = 'mingw',   env = env_mingw['64'],        cmd_make = 'make',  cmd_tar = 'tar'),
+    'mingw-cross'      : BuilderProfile(platform = 'mingw',   env = env_mingw['any'],       cmd_make = 'make',  cmd_tar = 'tar'),
+    'darwin10-i386'    : BuilderProfile(platform = 'darwin',  env = env_darwin10['i386'],   cmd_make = 'make',  cmd_tar = 'gnutar'),
+    'darwin10-x86_64'  : BuilderProfile(platform = 'darwin',  env = env_darwin10['x86_64'], cmd_make = 'make',  cmd_tar = 'gnutar'),
+    'darwin'           : BuilderProfile(platform = 'darwin',  env = env_darwin,             cmd_make = 'make',  cmd_tar = 'gnutar'),
 }
 
 # worker:  name of the worker
