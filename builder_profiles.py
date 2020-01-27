@@ -6,11 +6,13 @@
 # - make and tar command to be used
 # - is it capable of building C++11 code?
 class BuilderProfile(object):
-    def __init__(self, platform, env = {}, cmd_make = 'make', cmd_tar = 'tar'):
-        self.platform = platform
-        self.env      = env
-        self.cmd_make = cmd_make
-        self.cmd_tar  = cmd_tar
+    def __init__(self, platform, env = {}, cmake_defs = {}, cmd_make = 'make', cmd_tar = 'tar', cmake_generator = 'Ninja'):
+        self.platform        = platform
+        self.env             = env
+        self.cmake_defs      = cmake_defs
+        self.cmd_make        = cmd_make
+        self.cmd_tar         = cmd_tar
+        self.cmake_generator = cmake_generator
 
 # Builder:
 # - worker name
@@ -30,16 +32,18 @@ class BuildWorker(object):
         self.tlname   = tlname
         self.upload   = upload
 
-        self.platform = profile.platform
-        self.env      = profile.env
-        self.cmd_make = profile.cmd_make
-        self.cmd_tar  = profile.cmd_tar
+        self.platform        = profile.platform
+        self.env             = profile.env
+        self.cmake_defs      = profile.cmake_defs
+        self.cmd_make        = profile.cmd_make
+        self.cmd_tar         = profile.cmd_tar
+        self.cmake_generator = profile.cmake_generator
 
         self.build = {}
-        self.build['luametatex'] = (self.platform in ['darwin', 'freebsd', 'openbsd', 'linux', 'mingw']) and (not 'debian8' in self.name) and (self.code == 'prg')
-        self.build['pplib']      = (self.platform in ['darwin', 'freebsd', 'openbsd', 'linux'])          and (not 'debian8' in self.name)
-        self.build['luatex']     = not ((self.platform in ['mingw']) or (self.arch in ['sparc']))
-        self.build['texlive']    = not (self.platform in ['mingw'])
+        self.build['luametatex'] = (self.platform in ['darwin', 'freebsd', 'openbsd', 'linux', 'mingw', 'windows']) and (not 'debian8' in self.name) and (self.code == 'prg')
+        self.build['pplib']      = (self.platform in ['darwin', 'freebsd', 'openbsd', 'linux'])                     and (not 'debian8' in self.name)
+        self.build['luatex']     = not ((self.platform in ['mingw', 'windows']) or (self.arch in ['sparc']))
+        self.build['texlive']    = not  (self.platform in ['mingw', 'windows'])
 
 env_darwin10 = {}
 for arch in ['i386', 'x86_64']:
@@ -92,6 +96,7 @@ env_linux_clang = {
 env_darwin = {}
 env_mingw = {}
 env_mingw['any'] = {}
+cmake_defs = {}
 for arch in ['32', '64']:
     if arch == '32':
         name = 'i686-w64-mingw32'
@@ -105,6 +110,13 @@ for arch in ['32', '64']:
         'RANLIB'   : '{}-ranlib'.format(name),
         'STRIP'    : '{}-strip'.format(name),
     }
+    cmake_defs['mingw{}'.format(arch)] = {
+        'CMAKE_TOOLCHAIN_FILE' : './cmake/mingw-{}.cmake'.format(arch)
+    }
+
+cmake_defs['win-clang'] = {
+    'CMAKE_GENERATOR_TOOLSET' : 'ClangCL',
+}
 
 builder_profiles = {
     'solaris10-sparc'  : BuilderProfile(platform = 'solaris', env = env_solaris10,          cmd_make = 'gmake', cmd_tar = 'gtar'),
@@ -114,12 +126,15 @@ builder_profiles = {
     'openbsd'          : BuilderProfile(platform = 'openbsd', env = env_openbsd,            cmd_make = 'gmake', cmd_tar = 'gtar'),
     'linux'            : BuilderProfile(platform = 'linux',   env = env_linux,              cmd_make = 'make',  cmd_tar = 'tar'),
     'linux-clang'      : BuilderProfile(platform = 'linux',   env = env_linux_clang,        cmd_make = 'make',  cmd_tar = 'tar'),
-    'linux-mingw32'    : BuilderProfile(platform = 'mingw',   env = env_mingw['32'],        cmd_make = 'make',  cmd_tar = 'tar'),
-    'linux-mingw64'    : BuilderProfile(platform = 'mingw',   env = env_mingw['64'],        cmd_make = 'make',  cmd_tar = 'tar'),
-    'mingw-cross'      : BuilderProfile(platform = 'mingw',   env = env_mingw['any'],       cmd_make = 'make',  cmd_tar = 'tar'),
     'darwin10-i386'    : BuilderProfile(platform = 'darwin',  env = env_darwin10['i386'],   cmd_make = 'make',  cmd_tar = 'gnutar'),
     'darwin10-x86_64'  : BuilderProfile(platform = 'darwin',  env = env_darwin10['x86_64'], cmd_make = 'make',  cmd_tar = 'gnutar'),
     'darwin'           : BuilderProfile(platform = 'darwin',  env = env_darwin,             cmd_make = 'make',  cmd_tar = 'gnutar'),
+    'linux-mingw32'    : BuilderProfile(platform = 'mingw',   env = env_mingw['32']),
+    'linux-mingw64'    : BuilderProfile(platform = 'mingw',   env = env_mingw['64']),
+    'mingw-cross32'    : BuilderProfile(platform = 'mingw',   env = env_mingw['any'],                    cmake_defs = cmake_defs['mingw32']),
+    'mingw-cross64'    : BuilderProfile(platform = 'mingw',   env = env_mingw['any'],                    cmake_defs = cmake_defs['mingw64']),
+    'windows-msvc'     : BuilderProfile(platform = 'windows', cmake_generator = 'Visual Studio 16 2019', cmake_defs = {}),
+    'windows-clang'    : BuilderProfile(platform = 'windows', cmake_generator = 'Visual Studio 16 2019', cmake_defs = cmake_defs['win-clang']),
 }
 
 # worker:  name of the worker
@@ -144,7 +159,9 @@ builder_list = [
     BuildWorker(worker = 'thomas-darwin10-x86_64',      code = 'tho', profile = builder_profiles['darwin10-x86_64'],  name = 'darwin10-x86_64.tho',      arch = 'x86_64',  tlname = 'x86_64-darwinlegacy', upload = True),
     BuildWorker(worker = 'darwin10-x86_64',             code = 'prg', profile = builder_profiles['darwin10-x86_64'],  name = 'darwin10-x86_64.prg',      arch = 'x86_64',  tlname = 'x86_64-darwinlegacy', upload = False),
     BuildWorker(worker = 'darwin17-x86_64',             code = 'prg', profile = builder_profiles['darwin'],           name = 'darwin-x86_64.prg',        arch = 'x86_64',  tlname = 'x86_64-darwin',       upload = False),
-    BuildWorker(worker = 'pragma-linux-debian10-x86_64', code = 'prg', profile = builder_profiles['mingw-cross'],     name = 'mingw-x86_64.prg',         arch = 'x86_64',  tlname = 'x86_64-w64-mingw32',  upload = True),
-    BuildWorker(worker = 'pragma-linux-debian10-x86_64', code = 'prg', profile = builder_profiles['mingw-cross'],     name = 'mingw-i686.prg',           arch = 'i386',    tlname = 'i686-w64-mingw32',    upload = True),
+    BuildWorker(worker = 'pragma-linux-debian10-x86_64', code = 'prg', profile = builder_profiles['mingw-cross32'],   name = 'mingw-i686.prg',           arch = 'i386',    tlname = 'i686-w64-mingw32',    upload = True),
+    BuildWorker(worker = 'pragma-linux-debian10-x86_64', code = 'prg', profile = builder_profiles['mingw-cross64'],   name = 'mingw-x86_64.prg',         arch = 'x86_64',  tlname = 'x86_64-w64-mingw32',  upload = True),
+    BuildWorker(worker = 'pragma-windows10-x86_64',      code = 'prg', profile = builder_profiles['windows-msvc'],    name = 'windows-x86_64.prg',       arch = 'x86_64',  tlname = 'win64',               upload = True),
+    BuildWorker(worker = 'pragma-windows10-x86_64',      code = 'prg', profile = builder_profiles['windows-clang'],   name = 'windows-clang-x86_64.prg', arch = 'x86_64',  tlname = 'win64-clang',         upload = False),
 ]
 
