@@ -30,18 +30,19 @@ The list of other build candidates includes:
 ### Platforms
 
 The binaries are being built on:
-- Mac OS X 10.6 (`x86_64`)
+- Mac OS X 10.6, macOS 10.13 (`x86_64`)
 - Solaris 10 (`sparc`, `i386`, `x86_64`)
 - GNU/Linux (`arm`) – Raspbian on Raspberry PI 4
+- GNU/Linux (`aarch64`) – Ubuntu 20.10 on Raspberry PI 4
 - GNU/Linux Debian 8 & 9 (`i386`, `x86_64`)
 - GNU/Linux Alpine with musl (`x86_64`)
-- FreeBSD 12.1
-- OpenBSD 6.5 & 6.6 (`i386`, `amd64`)
+- FreeBSD 11.4 (`i386`, `amd64`)
+- OpenBSD 6.7 & 6.8 (`i386`, `amd64`)
 - MinGW-w64 cross-compiler (`win32`, `win64`)
+- Visual Studio 16 2019 (`i386`, `x86_64`, `arm64`)
 
 It might be nice to also include:
 - NetBSD
-- GNU/Linux (`arm64`)
 
 ### Credits and Special thanks
 
