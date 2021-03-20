@@ -68,7 +68,7 @@ for arch in ['x86_64']:
     env_darwin10[arch]['LDFLAGS'] = '-Os {}'.format(ldflags)
 
     env_darwin10[arch]['STRIP'] = 'strip -u -r'
-    env_darwin10[arch]['PYTHON'] = '/opt/local/bin/python3.8'
+    env_darwin10[arch]['PYTHON'] = '/opt/local/bin/python3.9'
 
 env_solaris10 = {
     'CC'      : '/opt/csw/bin/gcc-5.5',
