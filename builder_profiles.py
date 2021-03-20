@@ -49,8 +49,8 @@ env_darwin10 = {}
 for arch in ['i386', 'x86_64']:
     env_darwin10[arch] = {}
 
-    cc     = '/opt/local/bin/clang-mp-10'
-    cxx    = '/opt/local/bin/clang++-mp-10 -stdlib=libc++'
+    cc     = '/opt/local/bin/clang-mp-11'
+    cxx    = '/opt/local/bin/clang++-mp-11 -stdlib=libc++'
     target = '10.6'
     sdk    = '10.6' # '10.7'
 
