@@ -43,7 +43,7 @@ class BuildWorker(object):
         self.build['luametatex'] = (self.platform in ['darwin', 'freebsd', 'openbsd', 'linux', 'mingw', 'windows']) and (not 'debian8' in self.name) and (self.code == 'prg')
         self.build['pplib']      = (self.platform in ['darwin', 'freebsd', 'openbsd', 'linux'])                     and (not 'debian8' in self.name)
         self.build['luatex']     = not ((self.platform in ['windows']) or (self.arch in ['sparc']))
-        self.build['texlive']    = not  (self.platform in ['mingw', 'windows'])
+        self.build['texlive']    = not ((self.platform in ['mingw', 'windows']) or (self.name in ['darwin10-x86_64.prg']))
 
 env_darwin10 = {}
 for arch in ['i386', 'x86_64']:
