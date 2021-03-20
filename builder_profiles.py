@@ -46,7 +46,7 @@ class BuildWorker(object):
         self.build['texlive']    = not ((self.platform in ['mingw', 'windows']) or (self.name in ['darwin10-x86_64.prg']))
 
 env_darwin10 = {}
-for arch in ['i386', 'x86_64']:
+for arch in ['x86_64']:
     env_darwin10[arch] = {}
 
     cc     = '/opt/local/bin/clang-mp-11'
@@ -129,7 +129,6 @@ builder_profiles = {
     'openbsd'          : BuilderProfile(platform = 'openbsd', env = env_openbsd,            cmd_make = 'gmake', cmd_tar = 'gtar'),
     'linux'            : BuilderProfile(platform = 'linux',   env = env_linux,              cmd_make = 'make',  cmd_tar = 'tar'),
     'linux-clang'      : BuilderProfile(platform = 'linux',   env = env_linux_clang,        cmd_make = 'make',  cmd_tar = 'tar'),
-    'darwin10-i386'    : BuilderProfile(platform = 'darwin',  env = env_darwin10['i386'],   cmd_make = 'make',  cmd_tar = 'gnutar'),
     'darwin10-x86_64'  : BuilderProfile(platform = 'darwin',  env = env_darwin10['x86_64'], cmd_make = 'make',  cmd_tar = 'gnutar'),
     'darwin'           : BuilderProfile(platform = 'darwin',  env = env_darwin,             cmd_make = 'make',  cmd_tar = 'gnutar'),
     'linux-mingw32'    : BuilderProfile(platform = 'mingw',   env = env_mingw['32']),
