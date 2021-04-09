@@ -163,6 +163,7 @@ builder_list = [
     BuildWorker(worker = 'thomas-darwin10-x86_64',      code = 'tho', profile = builder_profiles['darwin10-x86_64'],  name = 'darwin10-x86_64.tho',      arch = 'x86_64',  tlname = 'x86_64-darwinlegacy', upload = True),
     BuildWorker(worker = 'darwin10-x86_64',             code = 'prg', profile = builder_profiles['darwin10-x86_64'],  name = 'darwin10-x86_64.prg',      arch = 'x86_64',  tlname = 'x86_64-darwinlegacy', upload = False),
     BuildWorker(worker = 'darwin17-x86_64',             code = 'prg', profile = builder_profiles['darwin'],           name = 'darwin-x86_64.prg',        arch = 'x86_64',  tlname = 'x86_64-darwin',       upload = False),
+    BuildWorker(worker = 'darwin-arm64',                code = 'moj', profile = builder_profiles['darwin'],           name = 'darwin-arm64.moj',         arch = 'arm64',   tlname = 'arm64-darwin',        upload = True),
     BuildWorker(worker = 'pragma-linux-debian10-x86_64', code = 'prg', profile = builder_profiles['mingw-cross32'],   name = 'mingw-i686.prg',           arch = 'i386',    tlname = 'i686-w64-mingw32',    upload = True),
     BuildWorker(worker = 'pragma-linux-debian10-x86_64', code = 'prg', profile = builder_profiles['mingw-cross64'],   name = 'mingw-x86_64.prg',         arch = 'x86_64',  tlname = 'x86_64-w64-mingw32',  upload = True),
     BuildWorker(worker = 'pragma-windows10-x86_64',      code = 'prg', profile = builder_profiles['windows-msvc'],    name = 'windows-x86_64.prg',       arch = 'x86_64',  tlname = 'win64',               upload = True),
