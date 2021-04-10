@@ -114,12 +114,10 @@ for arch in ['32', '64']:
         'CMAKE_TOOLCHAIN_FILE' : './cmake/mingw-{}.cmake'.format(arch)
     }
 
-cmake_defs['win-clang'] = {
-    'CMAKE_GENERATOR_TOOLSET' : 'ClangCL',
-}
-cmake_defs['win-arm64'] = {
-    'CMAKE_GENERATOR_PLATFORM' : 'ARM64',
-}
+cmake_defs['win-msvc64'] = {}
+cmake_defs['win-msvc32'] = { 'CMAKE_GENERATOR_PLATFORM' : 'Win32'   }
+cmake_defs['win-arm64']  = { 'CMAKE_GENERATOR_PLATFORM' : 'ARM64'   }
+cmake_defs['win-clang']  = { 'CMAKE_GENERATOR_TOOLSET'  : 'ClangCL' }
 
 builder_profiles = {
     'solaris10-sparc'  : BuilderProfile(platform = 'solaris', env = env_solaris10,          cmd_make = 'gmake', cmd_tar = 'gtar'),
@@ -135,7 +133,8 @@ builder_profiles = {
     'linux-mingw64'    : BuilderProfile(platform = 'mingw',   env = env_mingw['64']),
     'mingw-cross32'    : BuilderProfile(platform = 'mingw',   env = env_mingw['any'],                    cmake_defs = cmake_defs['mingw32']),
     'mingw-cross64'    : BuilderProfile(platform = 'mingw',   env = env_mingw['any'],                    cmake_defs = cmake_defs['mingw64']),
-    'windows-msvc'     : BuilderProfile(platform = 'windows', cmake_generator = 'Visual Studio 16 2019', cmake_defs = {}),
+    'windows-msvc32'   : BuilderProfile(platform = 'windows', cmake_generator = 'Visual Studio 16 2019', cmake_defs = cmake_defs['win-msvc32']),
+    'windows-msvc64'   : BuilderProfile(platform = 'windows', cmake_generator = 'Visual Studio 16 2019', cmake_defs = cmake_defs['win-msvc64']),
     'windows-clang'    : BuilderProfile(platform = 'windows', cmake_generator = 'Visual Studio 16 2019', cmake_defs = cmake_defs['win-clang']),
     'windows-arm64'    : BuilderProfile(platform = 'windows', cmake_generator = 'Visual Studio 16 2019', cmake_defs = cmake_defs['win-arm64']),
 }
@@ -166,7 +165,8 @@ builder_list = [
     BuildWorker(worker = 'darwin-arm64',                code = 'moj', profile = builder_profiles['darwin'],           name = 'darwin-arm64.moj',         arch = 'arm64',   tlname = 'arm64-darwin',        upload = True),
     BuildWorker(worker = 'pragma-linux-debian10-x86_64', code = 'prg', profile = builder_profiles['mingw-cross32'],   name = 'mingw-i686.prg',           arch = 'i386',    tlname = 'i686-w64-mingw32',    upload = True),
     BuildWorker(worker = 'pragma-linux-debian10-x86_64', code = 'prg', profile = builder_profiles['mingw-cross64'],   name = 'mingw-x86_64.prg',         arch = 'x86_64',  tlname = 'x86_64-w64-mingw32',  upload = True),
-    BuildWorker(worker = 'pragma-windows10-x86_64',      code = 'prg', profile = builder_profiles['windows-msvc'],    name = 'windows-x86_64.prg',       arch = 'x86_64',  tlname = 'win64',               upload = True),
+    BuildWorker(worker = 'pragma-windows10-x86_64',      code = 'prg', profile = builder_profiles['windows-msvc32'],  name = 'windows-i686.prg',         arch = 'i386',    tlname = 'win32',               upload = True),
+    BuildWorker(worker = 'pragma-windows10-x86_64',      code = 'prg', profile = builder_profiles['windows-msvc64'],  name = 'windows-x86_64.prg',       arch = 'x86_64',  tlname = 'win64',               upload = True),
     BuildWorker(worker = 'pragma-windows10-x86_64',      code = 'prg', profile = builder_profiles['windows-clang'],   name = 'windows-clang-x86_64.prg', arch = 'x86_64',  tlname = 'win64-clang',         upload = False),
     BuildWorker(worker = 'pragma-windows10-x86_64',      code = 'prg', profile = builder_profiles['windows-arm64'],   name = 'windows-arm64.prg',        arch = 'arm64',   tlname = 'arm64-windows',       upload = True),
 ]
