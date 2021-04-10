@@ -40,10 +40,10 @@ class BuildWorker(object):
         self.cmake_generator = profile.cmake_generator
 
         self.build = {}
-        self.build['luametatex'] = (self.platform in ['darwin', 'freebsd', 'openbsd', 'linux', 'mingw', 'windows']) and (not 'debian8' in self.name) and (self.code == 'prg')
-        self.build['pplib']      = (self.platform in ['darwin', 'freebsd', 'openbsd', 'linux'])                     and (not 'debian8' in self.name)
+        self.build['luametatex'] = (not 'debian8' in self.name) and (self.arch != 'sparc')
+        self.build['pplib']      = (not 'debian8' in self.name) and (self.platform in ['darwin', 'freebsd', 'openbsd', 'linux'])
         self.build['luatex']     = not ((self.platform in ['windows']) or (self.arch in ['sparc']))
-        self.build['texlive']    = not ((self.platform in ['mingw', 'windows']) or (self.name in ['darwin10-x86_64.prg']))
+        self.build['texlive']    = not  (self.platform in ['mingw', 'windows'])
 
 env_darwin10 = {}
 for arch in ['x86_64']:
@@ -120,9 +120,9 @@ cmake_defs['win-arm64']  = { 'CMAKE_GENERATOR_PLATFORM' : 'ARM64'   }
 cmake_defs['win-clang']  = { 'CMAKE_GENERATOR_TOOLSET'  : 'ClangCL' }
 
 builder_profiles = {
-    'solaris10-sparc'  : BuilderProfile(platform = 'solaris', env = env_solaris10,          cmd_make = 'gmake', cmd_tar = 'gtar'),
-    'solaris10-i386'   : BuilderProfile(platform = 'solaris', env = env_solaris10,          cmd_make = 'gmake', cmd_tar = 'gtar'),
-    'solaris10-x86_64' : BuilderProfile(platform = 'solaris', env = env_solaris10_64,       cmd_make = 'gmake', cmd_tar = 'gtar'),
+    'solaris10-sparc'  : BuilderProfile(platform = 'solaris', env = env_solaris10,          cmd_make = 'gmake', cmd_tar = 'gtar', cmake_generator = 'Unix Makefiles'),
+    'solaris10-i386'   : BuilderProfile(platform = 'solaris', env = env_solaris10,          cmd_make = 'gmake', cmd_tar = 'gtar', cmake_generator = 'Unix Makefiles'),
+    'solaris10-x86_64' : BuilderProfile(platform = 'solaris', env = env_solaris10_64,       cmd_make = 'gmake', cmd_tar = 'gtar', cmake_generator = 'Unix Makefiles'),
     'freebsd'          : BuilderProfile(platform = 'freebsd', env = env_freebsd,            cmd_make = 'gmake', cmd_tar = 'gtar'),
     'openbsd'          : BuilderProfile(platform = 'openbsd', env = env_openbsd,            cmd_make = 'gmake', cmd_tar = 'gtar'),
     'linux'            : BuilderProfile(platform = 'linux',   env = env_linux,              cmd_make = 'make',  cmd_tar = 'tar'),
@@ -160,7 +160,6 @@ builder_list = [
     BuildWorker(worker = 'pragma-linux-debian8-x86_64', code = 'prg', profile = builder_profiles['linux'],            name = 'linux-x86_64-debian8.prg', arch = 'x86_64',  tlname = 'x86_64-linux',        upload = False),
     BuildWorker(worker = 'pragma-linux-debian9-x86_64', code = 'prg', profile = builder_profiles['linux'],            name = 'linux-x86_64-debian9.prg', arch = 'x86_64',  tlname = 'x86_64-linux',        upload = True),
     BuildWorker(worker = 'thomas-darwin10-x86_64',      code = 'tho', profile = builder_profiles['darwin10-x86_64'],  name = 'darwin10-x86_64.tho',      arch = 'x86_64',  tlname = 'x86_64-darwinlegacy', upload = True),
-    BuildWorker(worker = 'darwin10-x86_64',             code = 'prg', profile = builder_profiles['darwin10-x86_64'],  name = 'darwin10-x86_64.prg',      arch = 'x86_64',  tlname = 'x86_64-darwinlegacy', upload = False),
     BuildWorker(worker = 'darwin17-x86_64',             code = 'prg', profile = builder_profiles['darwin'],           name = 'darwin-x86_64.prg',        arch = 'x86_64',  tlname = 'x86_64-darwin',       upload = False),
     BuildWorker(worker = 'darwin-arm64',                code = 'moj', profile = builder_profiles['darwin'],           name = 'darwin-arm64.moj',         arch = 'arm64',   tlname = 'arm64-darwin',        upload = True),
     BuildWorker(worker = 'pragma-linux-debian10-x86_64', code = 'prg', profile = builder_profiles['mingw-cross32'],   name = 'mingw-i686.prg',           arch = 'i386',    tlname = 'i686-w64-mingw32',    upload = True),
