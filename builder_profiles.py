@@ -40,8 +40,8 @@ class BuildWorker(object):
         self.cmake_generator = profile.cmake_generator
 
         self.build = {}
-        self.build['luametatex'] = (not 'debian8' in self.name) and (self.arch != 'sparc')
-        self.build['pplib']      = (not 'debian8' in self.name) and (self.platform in ['darwin', 'freebsd', 'openbsd', 'linux'])
+        self.build['luametatex'] = True
+        self.build['pplib']      = (self.platform in ['darwin', 'freebsd', 'openbsd', 'linux'])
         self.build['luatex']     = not ((self.platform in ['windows']) or (self.arch in ['sparc']))
         self.build['texlive']    = not  (self.platform in ['mingw', 'windows'])
 
@@ -155,9 +155,7 @@ builder_list = [
     BuildWorker(worker = 'pragma-linux-alpine-x86_64',  code = 'prg', profile = builder_profiles['linux-clang'],      name = 'linuxmusl-x86_64-alpine.prg', arch = 'x86_64', tlname = 'x86_64-linuxmusl',  upload = True),
     BuildWorker(worker = 'pragma-linux-debian10-armhf', code = 'prg', profile = builder_profiles['linux'],            name = 'linux-armhf-debian10.prg', arch = 'armhf',   tlname = 'armhf-linux',         upload = True),
     BuildWorker(worker = 'mojca-linux-debian10-aarch64', code = 'moj', profile = builder_profiles['linux'],           name = 'linux-aarch64-debian10.moj', arch = 'aarch64', tlname = 'aarch64-linux',     upload = True),
-    BuildWorker(worker = 'pragma-linux-debian8-i386',   code = 'prg', profile = builder_profiles['linux'],            name = 'linux-i386-debian8.prg',   arch = 'i386',    tlname = 'i386-linux',          upload = False),
     BuildWorker(worker = 'pragma-linux-debian9-i386',   code = 'prg', profile = builder_profiles['linux'],            name = 'linux-i386-debian9.prg',   arch = 'i386',    tlname = 'i386-linux',          upload = True),
-    BuildWorker(worker = 'pragma-linux-debian8-x86_64', code = 'prg', profile = builder_profiles['linux'],            name = 'linux-x86_64-debian8.prg', arch = 'x86_64',  tlname = 'x86_64-linux',        upload = False),
     BuildWorker(worker = 'pragma-linux-debian9-x86_64', code = 'prg', profile = builder_profiles['linux'],            name = 'linux-x86_64-debian9.prg', arch = 'x86_64',  tlname = 'x86_64-linux',        upload = True),
     BuildWorker(worker = 'darwin-arm64',                code = 'moj', profile = builder_profiles['darwin'],           name = 'darwin-arm64.moj',         arch = 'arm64',   tlname = 'arm64-darwin',        upload = True),
     BuildWorker(worker = 'darwin10-x86_64',             code = 'moj', profile = builder_profiles['darwin10-x86_64'],  name = 'darwin10-x86_64.moj',      arch = 'x86_64',  tlname = 'x86_64-darwinlegacy', upload = True),
