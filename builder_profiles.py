@@ -157,7 +157,7 @@ builder_list = [
     BuildWorker(worker = 'mojca-linux-debian10-aarch64', code = 'moj', profile = builder_profiles['linux'],           name = 'linux-aarch64-debian10.moj', arch = 'aarch64', tlname = 'aarch64-linux',     upload = True),
     BuildWorker(worker = 'pragma-linux-debian9-i386',   code = 'prg', profile = builder_profiles['linux'],            name = 'linux-i386-debian9.prg',   arch = 'i386',    tlname = 'i386-linux',          upload = True),
     BuildWorker(worker = 'pragma-linux-debian9-x86_64', code = 'prg', profile = builder_profiles['linux'],            name = 'linux-x86_64-debian9.prg', arch = 'x86_64',  tlname = 'x86_64-linux',        upload = True),
-    BuildWorker(worker = 'darwin-arm64',                code = 'moj', profile = builder_profiles['darwin'],           name = 'darwin-arm64.moj',         arch = 'arm64',   tlname = 'arm64-darwin',        upload = True),
+    BuildWorker(worker = 'mojca-darwin-arm64',          code = 'moj', profile = builder_profiles['darwin'],           name = 'darwin-arm64.moj',         arch = 'arm64',   tlname = 'arm64-darwin',        upload = True),
     BuildWorker(worker = 'darwin10-x86_64',             code = 'moj', profile = builder_profiles['darwin10-x86_64'],  name = 'darwin10-x86_64.moj',      arch = 'x86_64',  tlname = 'x86_64-darwinlegacy', upload = True),
     BuildWorker(worker = 'pragma-linux-debian10-x86_64', code = 'prg', profile = builder_profiles['mingw-cross32'],   name = 'mingw-i686.prg',           arch = 'i386',    tlname = 'i686-w64-mingw32',    upload = True),
     BuildWorker(worker = 'pragma-linux-debian10-x86_64', code = 'prg', profile = builder_profiles['mingw-cross64'],   name = 'mingw-x86_64.prg',         arch = 'x86_64',  tlname = 'x86_64-w64-mingw32',  upload = True),
