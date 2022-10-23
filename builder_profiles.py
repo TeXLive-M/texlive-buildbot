@@ -44,6 +44,7 @@ class BuildWorker(object):
         self.build['pplib']      = (self.platform in ['darwin', 'freebsd', 'openbsd', 'linux'])
         self.build['luatex']     = not ((self.platform in ['windows']) or (self.arch in ['sparc']))
         self.build['texlive']    = not  (self.platform in ['mingw', 'windows'])
+        self.build['lmtx_libs']  = True
 
 env_darwin10 = {}
 for arch in ['x86_64']:
